@@ -10,6 +10,7 @@ import com.geekbrains.spring.web.core.repositories.OrdersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,19 @@ public class OrderService {
         return ordersRepository.findAllByUsername(username);
     }
 
+    public void removeOrderById(Long id) {
+        ordersRepository.deleteById(id);
+    }
+
     public Optional<Order> findById(Long id) {
         return ordersRepository.findById(id);
+    }
+
+    public String findByStatus (Long orderId) {
+       return ordersRepository.fingByOrderId(orderId).getStatus();
+    }
+
+    public void addStatusOrder(Long id, String status) {
+          ordersRepository.fingByOrderId(id).setStatus(status);
     }
 }

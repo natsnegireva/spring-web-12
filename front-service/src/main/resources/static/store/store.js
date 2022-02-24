@@ -13,7 +13,17 @@ angular.module('market-front').controller('storeController', function ($scope, $
             }
         }).then(function (response) {
             $scope.ProductsPage = response.data;
-            $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.ProductsPage.totalPages);
+
+            let minPageIndex = pageIndex - 2;
+            if (minPageIndex < 1) {
+                minPageIndex = 1;
+            }
+            let maxPageIndex = pageIndex + 2;
+            if (maxPageIndex > $scope.ProductsPage.totalPages) {
+                maxPageIndex = $scope.ProductsPage.totalPages;
+            }
+            // $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.ProductsPage.totalPages);
+            $scope.PaginationArray = $scope.generatePagesIndexes(minPageIndex, maxPageIndex);
         });
     };
 

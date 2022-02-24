@@ -15,10 +15,12 @@ import java.util.stream.Collectors;
 public class PayPalService {
     private final OrderService orderService;
 
+
     @Transactional
     public OrderRequest createOrderRequest(Long orderId) {
         com.geekbrains.spring.web.core.entities.Order order = orderService.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Заказ не найден"));
 
+        if (orderService.findByStatus(orderId) == "CREATED") {
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
 
@@ -46,5 +48,7 @@ public class PayPalService {
         purchaseUnitRequests.add(purchaseUnitRequest);
         orderRequest.purchaseUnits(purchaseUnitRequests);
         return orderRequest;
+        }
+        return null;
     }
 }

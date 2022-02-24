@@ -37,6 +37,9 @@ public class Order {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "status")
+    private String status;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
